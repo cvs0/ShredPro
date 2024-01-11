@@ -1,0 +1,10 @@
+C:\Users\cvs0_\Documents\VisualStudioProkects\ShredPro\bin\Debug\ShredPro.exe.config
+C:\Users\cvs0_\Documents\VisualStudioProkects\ShredPro\bin\Debug\ShredPro.exe
+C:\Users\cvs0_\Documents\VisualStudioProkects\ShredPro\bin\Debug\ShredPro.pdb
+C:\Users\cvs0_\Documents\VisualStudioProkects\ShredPro\obj\Debug\ShredPro.csproj.AssemblyReference.cache
+C:\Users\cvs0_\Documents\VisualStudioProkects\ShredPro\obj\Debug\ShredPro.Form1.resources
+C:\Users\cvs0_\Documents\VisualStudioProkects\ShredPro\obj\Debug\ShredPro.Properties.Resources.resources
+C:\Users\cvs0_\Documents\VisualStudioProkects\ShredPro\obj\Debug\ShredPro.csproj.GenerateResource.cache
+C:\Users\cvs0_\Documents\VisualStudioProkects\ShredPro\obj\Debug\ShredPro.csproj.CoreCompileInputs.cache
+C:\Users\cvs0_\Documents\VisualStudioProkects\ShredPro\obj\Debug\ShredPro.exe
+C:\Users\cvs0_\Documents\VisualStudioProkects\ShredPro\obj\Debug\ShredPro.pdb
