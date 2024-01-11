@@ -186,42 +186,137 @@ namespace ShredPro
             switch (algorithm)
             {
                 case "Random Data":
-                    byte[] randomBuffer = new byte[fs.Length];
-                    new Random().NextBytes(randomBuffer);
-                    fs.Write(randomBuffer, 0, randomBuffer.Length);
+                    if (fs != null && fs.Length > 0)
+                    {
+                        byte[] randomBuffer = new byte[fs.Length];
+                        new Random().NextBytes(randomBuffer);
+
+                        try
+                        {
+                            fs.Write(randomBuffer, 0, randomBuffer.Length);
+                        }
+                        catch (IOException ex)
+                        {
+                            Console.WriteLine("IOException during the Random Data Method, " + ex.Message);
+                        }
+                    }
+
+                    else if (fs != null && fs.Length == 0)
+                    {
+                        try
+                        {
+                            File.Delete(fs.Name);
+                        }
+                        catch (IOException ex)
+                        {
+                            Console.WriteLine("IOException during file deletion, " + ex.Message);
+                        }
+                    }
+
                     break;
 
                 case "Zeroes":
-                    byte[] zeroBuffer = new byte[fs.Length];
-                    fs.Write(zeroBuffer, 0, zeroBuffer.Length);
+                    if (fs != null && fs.Length > 0)
+                    {
+                        byte[] zeroBuffer = new byte[fs.Length];
+
+                        try
+                        {
+                            fs.Write(zeroBuffer, 0, zeroBuffer.Length);
+                        }
+                        catch (IOException ex)
+                        {
+                            Console.WriteLine("IOException during the Zeroes Method, " + ex.Message);
+                        }
+                    }
+
+                    else if (fs != null && fs.Length == 0)
+                    {
+                        try
+                        {
+                            File.Delete(fs.Name);
+                        }
+                        catch (IOException ex)
+                        {
+                            Console.WriteLine("IOException during file deletion, " + ex.Message);
+                        }
+                    }
+
                     break;
 
                 case "DoD Standard (3 passes)":
-                    byte[] dodBuffer = new byte[fs.Length];
-
-                    fs.Write(dodBuffer, 0, dodBuffer.Length);
-
-                    for (int i = 0; i < dodBuffer.Length; i++)
+                    if (fs != null && fs.Length > 0)
                     {
-                        dodBuffer[i] = 0xFF;
-                    }
-                    fs.Write(dodBuffer, 0, dodBuffer.Length);
+                        byte[] dodBuffer = new byte[fs.Length];
 
-                    new Random().NextBytes(dodBuffer);
-                    fs.Write(dodBuffer, 0, dodBuffer.Length);
+                        try
+                        {
+                            fs.Write(dodBuffer, 0, dodBuffer.Length);
+
+                            for (int i = 0; i < dodBuffer.Length; i++)
+                            {
+                                dodBuffer[i] = 0xFF;
+                            }
+                            fs.Write(dodBuffer, 0, dodBuffer.Length);
+
+                            new Random().NextBytes(dodBuffer);
+                            fs.Write(dodBuffer, 0, dodBuffer.Length);
+                        }
+                        catch (IOException ex)
+                        {
+                            Console.WriteLine("IOException during the DoD Method, " + ex.Message);
+                        }
+                    }
+
+                    else if (fs != null && fs.Length == 0)
+                    {
+                        try
+                        {
+                            File.Delete(fs.Name);
+                        }
+                        catch (IOException ex)
+                        {
+                            Console.WriteLine("IOException during file deletion, " + ex.Message);
+                        }
+                    }
+
                     break;
 
                 case "Gutmann Method (35 passes)":
-                    byte[] gutmannBuffer = new byte[fs.Length];
-
-                    for (int pass = 0; pass < 35; pass++)
+                    if (fs != null || fs.Length != 0)
                     {
-                        for (int i = 0; i < gutmannBuffer.Length; i++)
+                        byte[] gutmannBuffer = new byte[fs.Length];
+
+                        for (int pass = 0; pass < 35; pass++)
                         {
-                            gutmannBuffer[i] = (byte)pass;
+                            for (int i = 0; i < gutmannBuffer.Length; i++)
+                            {
+                                gutmannBuffer[i] = (byte)pass;
+                            }
+
+                            try
+                            {
+                                fs.Write(gutmannBuffer, 0, gutmannBuffer.Length);
+                            }
+                            catch (IOException ex)
+                            {
+                                Console.WriteLine("IOException during the Gutmann Method, " + ex.Message);
+                            }
                         }
-                        fs.Write(gutmannBuffer, 0, gutmannBuffer.Length);
                     }
+
+                    else if (fs != null && fs.Length == 0)
+                    {
+                        try
+                        {
+                            File.Delete(fs.Name);
+                        }
+                        catch (IOException ex)
+                        {
+                            Console.WriteLine("IOException during file deletion, " + ex.Message);
+                        }
+                    }
+
                     break;
 
                 default:
