@@ -32,6 +32,9 @@
             this.btnShred = new System.Windows.Forms.Button();
             this.cmbAlgorithms = new System.Windows.Forms.ComboBox();
             this.lblTotalSize = new System.Windows.Forms.Label();
+            this.btnZeroData = new System.Windows.Forms.Button();
+            this.comboBoxAlphabet = new System.Windows.Forms.ComboBox();
+            this.clearButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbFiles
@@ -72,18 +75,50 @@
             this.lblTotalSize.Size = new System.Drawing.Size(0, 13);
             this.lblTotalSize.TabIndex = 3;
             // 
+            // btnZeroData
+            // 
+            this.btnZeroData.BackColor = System.Drawing.Color.LawnGreen;
+            this.btnZeroData.Location = new System.Drawing.Point(490, 74);
+            this.btnZeroData.Name = "btnZeroData";
+            this.btnZeroData.Size = new System.Drawing.Size(98, 23);
+            this.btnZeroData.TabIndex = 4;
+            this.btnZeroData.Text = "Cleanse Drive";
+            this.btnZeroData.UseVisualStyleBackColor = false;
+            this.btnZeroData.Click += new System.EventHandler(this.btnZeroData_Click);
+            // 
+            // comboBoxAlphabet
+            // 
+            this.comboBoxAlphabet.FormattingEnabled = true;
+            this.comboBoxAlphabet.Location = new System.Drawing.Point(594, 74);
+            this.comboBoxAlphabet.Name = "comboBoxAlphabet";
+            this.comboBoxAlphabet.Size = new System.Drawing.Size(32, 21);
+            this.comboBoxAlphabet.TabIndex = 5;
+            // 
+            // clearButton
+            // 
+            this.clearButton.Location = new System.Drawing.Point(410, 218);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(75, 23);
+            this.clearButton.TabIndex = 6;
+            this.clearButton.Text = "Clear";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.clearButton);
+            this.Controls.Add(this.comboBoxAlphabet);
+            this.Controls.Add(this.btnZeroData);
             this.Controls.Add(this.lblTotalSize);
             this.Controls.Add(this.cmbAlgorithms);
             this.Controls.Add(this.btnShred);
             this.Controls.Add(this.lbFiles);
             this.Name = "Form1";
-            this.Text = "ShredPro | V. 1.0.0 | cvs0";
+            this.Text = "ShredPro | V. 1.1.0";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -95,6 +130,9 @@
         private System.Windows.Forms.Button btnShred;
         private System.Windows.Forms.ComboBox cmbAlgorithms;
         private System.Windows.Forms.Label lblTotalSize;
+        private System.Windows.Forms.Button btnZeroData;
+        private System.Windows.Forms.ComboBox comboBoxAlphabet;
+        private System.Windows.Forms.Button clearButton;
     }
 }
 

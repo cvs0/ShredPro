@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,15 +21,32 @@ namespace ShredPro
         {
             InitializeComponent();
             lbFiles.AllowDrop = true;
-            lbFiles.DragDrop += lbFiles_DragDrop;
-            lbFiles.DragEnter += lbFiles_DragEnter;
-            btnShred.Click += btnShred_Click;
 
             cmbAlgorithms.Items.Add("Random Data");
             cmbAlgorithms.Items.Add("Zeroes");
             cmbAlgorithms.Items.Add("DoD Standard (3 passes)");
             cmbAlgorithms.Items.Add("Gutmann Method (35 passes)");
             cmbAlgorithms.SelectedIndex = 0;
+
+            PopulateAlphabetComboBox();
+            comboBoxAlphabet.SelectedIndexChanged += ComboBoxAlphabet_SelectedIndexChanged;
+        }
+
+        string currentDriveLetter;
+
+        private void ComboBoxAlphabet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentDriveLetter = comboBoxAlphabet.SelectedItem.ToString();
+        }
+
+        private void PopulateAlphabetComboBox()
+        {
+            comboBoxAlphabet.Items.Clear();
+
+            for (char letter = 'A'; letter <= 'Z'; letter++)
+            {
+                comboBoxAlphabet.Items.Add(letter);
+            }
         }
 
         private void UpdateTotalFileSize()
@@ -164,15 +183,13 @@ namespace ShredPro
         private void ShredDirectory(string directoryPath, string algorithm)
         {
             // Shred all files in the directory
-            string[] files = Directory.GetFiles(directoryPath);
-            foreach (string file in files)
+            foreach (string file in Directory.GetFiles(directoryPath))
             {
                 ShredFile(file, algorithm);
             }
 
             // Recursively shred files in subdirectories
-            string[] subdirectories = Directory.GetDirectories(directoryPath);
-            foreach (string subdirectory in subdirectories)
+            foreach (string subdirectory in Directory.GetDirectories(directoryPath))
             {
                 ShredDirectory(subdirectory, algorithm);
             }
@@ -180,6 +197,7 @@ namespace ShredPro
             // Remove the empty directory
             Directory.Delete(directoryPath);
         }
+
 
         private void ShredData(FileStream fs, string algorithm)
         {
@@ -330,6 +348,82 @@ namespace ShredPro
                 e.Effect = DragDropEffects.Copy;
             else
                 e.Effect = DragDropEffects.None;
+        }
+
+        private void btnZeroData_Click(object sender, EventArgs e)
+        {
+            if (!shreddingInProgress)
+            {
+                shreddingInProgress = true;
+                DialogResult result = MessageBox.Show("Are you sure you want to overwrite all unallocated space with zeros?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    OverwriteUnallocatedSpace(currentDriveLetter);
+                }
+
+                shreddingInProgress = false;
+            }
+        }
+
+        private void OverwriteUnallocatedSpace(string driveLetter)
+        {
+            try
+            {
+                Thread thread = new Thread(() =>
+                {
+                    try
+                    {
+                        using (Process process = new Process())
+                        {
+                            ProcessStartInfo psi = new ProcessStartInfo
+                            {
+                                FileName = "cmd.exe",  // Use the command prompt
+                                Arguments = $"/c sdelete.exe -z {driveLetter.ToLower()}:",
+                                RedirectStandardOutput = true,
+                                UseShellExecute = false,
+                                CreateNoWindow = false  // Show the command prompt window
+                            };
+
+                            process.StartInfo = psi;
+                            process.Start();
+
+                            string output = process.StandardOutput.ReadToEnd();
+                            process.WaitForExit();
+
+                            if (process.ExitCode != 0)
+                            {
+                                Console.WriteLine($"sdelete.exe process exited with non-zero code: {process.ExitCode}");
+                            }
+
+                            Console.WriteLine(output);
+                        }
+                    }
+                    catch (Win32Exception ex)
+                    {
+                        Console.WriteLine($"Win32Exception: {ex.Message}, NativeErrorCode: {ex.NativeErrorCode}");
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        Console.WriteLine($"InvalidOperationException: {ex.Message}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Unhandled Exception: {ex}");
+                    }
+                });
+
+                thread.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unhandled Exception: {ex}");
+            }
+        }
+
+        private void clear_Click(object sender, EventArgs e)
+        {
+            lbFiles.Items.Clear();
         }
     }
 }

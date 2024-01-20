@@ -1,0 +1,10 @@
+C:\Users\cvs0_\Documents\GitHub\ShredPro\bin\x64\Debug\ShredPro.exe.config
+C:\Users\cvs0_\Documents\GitHub\ShredPro\bin\x64\Debug\ShredPro.exe
+C:\Users\cvs0_\Documents\GitHub\ShredPro\bin\x64\Debug\ShredPro.pdb
+C:\Users\cvs0_\Documents\GitHub\ShredPro\obj\x64\Debug\ShredPro.csproj.AssemblyReference.cache
+C:\Users\cvs0_\Documents\GitHub\ShredPro\obj\x64\Debug\ShredPro.Form1.resources
+C:\Users\cvs0_\Documents\GitHub\ShredPro\obj\x64\Debug\ShredPro.Properties.Resources.resources
+C:\Users\cvs0_\Documents\GitHub\ShredPro\obj\x64\Debug\ShredPro.csproj.GenerateResource.cache
+C:\Users\cvs0_\Documents\GitHub\ShredPro\obj\x64\Debug\ShredPro.csproj.CoreCompileInputs.cache
+C:\Users\cvs0_\Documents\GitHub\ShredPro\obj\x64\Debug\ShredPro.exe
+C:\Users\cvs0_\Documents\GitHub\ShredPro\obj\x64\Debug\ShredPro.pdb
