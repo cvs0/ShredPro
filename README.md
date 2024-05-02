@@ -13,3 +13,7 @@ File shredding is overwriting a file with random data, then deleting it. We do t
 - Many different algorithms
 
 ## Algorithms
+- Random data
+- Zeroes
+- DoD
+- Gutmann Method
